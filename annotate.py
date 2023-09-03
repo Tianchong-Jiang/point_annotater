@@ -38,17 +38,18 @@ class Annotator:
 
                 # wait for key number input
                 while True:
-                    key = cv2.waitKey(1) & 0xFF
+                    key = cv2.waitKey(0) & 0xFF
                     if key >= ord('0') and key <= ord('9'):
                         n = key - ord('0')
                         if not self.check_repeated_points(n):
+                            self.clicked_points.append([x, y, n])
+                            self.update_image()
                             break
                     # exit when q is pressed
                     elif key == ord('q'):
                         exit()
-
-                self.clicked_points.append([x, y, n])
-                self.update_image()
+                    elif key == ord('n'):
+                        break
 
             self.click_times.append(time.time())
 
